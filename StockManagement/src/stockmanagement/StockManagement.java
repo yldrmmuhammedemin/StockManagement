@@ -3,7 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Main.java to edit this template
  */
 package stockmanagement;
-package LoginPage;
+import UI.LoginPage;
 
 
 /**
@@ -16,8 +16,7 @@ public class StockManagement {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-       
-        // TODO code application logic here
+       LoginPage LoginPage =new LoginPage();
+       LoginPage.setVisible(true);
     }
-    
 }

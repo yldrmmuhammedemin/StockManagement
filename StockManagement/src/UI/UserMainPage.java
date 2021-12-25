@@ -252,22 +252,22 @@ public class UserMainPage extends javax.swing.JFrame {
 
     private void jLabel2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel2MouseClicked
         new CategoryAdd().setVisible(true);
-            this.dispose();
+
     }//GEN-LAST:event_jLabel2MouseClicked
 
     private void jLabel3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel3MouseClicked
         new CustomerAdd().setVisible(true);
-            this.dispose();
+
     }//GEN-LAST:event_jLabel3MouseClicked
 
     private void jLabel5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel5MouseClicked
        new ProductSell().setVisible(true);
-            this.dispose();
+
     }//GEN-LAST:event_jLabel5MouseClicked
 
     private void jLabel6MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel6MouseClicked
         new ProductAdd().setVisible(true);
-            this.dispose();
+
     }//GEN-LAST:event_jLabel6MouseClicked
 
     /**

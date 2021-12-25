@@ -419,8 +419,7 @@ public void SelectPers()
     }//GEN-LAST:event_jLabel18MouseClicked
 
     private void jLabel2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel2MouseClicked
-          new LoginPage().setVisible(true);
-      this.dispose();
+           this.dispose();
     }//GEN-LAST:event_jLabel2MouseClicked
 
     private void jLabel19MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel19MouseClicked
