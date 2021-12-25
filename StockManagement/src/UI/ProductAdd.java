@@ -22,6 +22,7 @@ public class ProductAdd extends javax.swing.JFrame {
     public ProductAdd() {
         initComponents();
         SelectProd();
+        GetCat();
     }
 
     @SuppressWarnings("unchecked")
@@ -151,7 +152,7 @@ public class ProductAdd extends javax.swing.JFrame {
 
         jLabel7.setText("Kategori");
 
-        ProductCat.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        ProductCat.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { " " }));
 
         jLabel16.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         jLabel16.setText("-");
@@ -293,6 +294,19 @@ public void SelectProd()
     } catch (Exception e) {
     }
 }
+private void GetCat(){
+    try {
+        Con=DriverManager.getConnection("jdbc:oracle:thin:@//localhost:1521/XEPDB1","root","123456789");
+        St=Con.createStatement();
+        String Query="SELECT * FROM root.CATEGORYTBL ";
+        Rs=St.executeQuery(Query);
+        while(Rs.next()){
+        String Cat=Rs.getString("CATEGORYNAME");
+        ProductCat.addItem(Cat);
+        }
+    } catch (Exception e) {
+    }
+}
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         try {
             Con=DriverManager.getConnection("jdbc:oracle:thin:@//localhost:1521/XEPDB1","root","123456789");
@@ -363,7 +377,7 @@ public void SelectProd()
     }//GEN-LAST:event_jLabel15MouseClicked
 
     private void jLabel5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel5MouseClicked
-          new LoginPage().setVisible(true);
+
       this.dispose();
     }//GEN-LAST:event_jLabel5MouseClicked
 

@@ -133,7 +133,7 @@ public class UserAdd extends javax.swing.JFrame {
             }
         });
 
-        PersonelPosition.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        PersonelPosition.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "             ", "Yönetici", "Personel" }));
         PersonelPosition.setAutoscrolls(true);
         PersonelPosition.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

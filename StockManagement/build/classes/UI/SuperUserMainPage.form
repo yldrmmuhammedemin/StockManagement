@@ -84,7 +84,6 @@
                                       <Component id="jLabel5" min="-2" max="-2" attributes="0"/>
                                       <Component id="jLabel11" min="-2" max="-2" attributes="0"/>
                                   </Group>
-                                  <EmptySpace pref="163" max="-2" attributes="0"/>
                               </Group>
                               <Group type="102" alignment="0" attributes="0">
                                   <EmptySpace min="157" pref="157" max="-2" attributes="0"/>
@@ -190,6 +189,9 @@
               <Image iconType="3" name="/Icons/icons8-product-60.png"/>
             </Property>
           </Properties>
+          <Events>
+            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jLabel6MouseClicked"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel5">
           <Properties>
@@ -198,6 +200,9 @@
               <Image iconType="3" name="/Icons/icons8-sell-stock-60.png"/>
             </Property>
           </Properties>
+          <Events>
+            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jLabel5MouseClicked"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel3">
           <Properties>
@@ -206,6 +211,9 @@
               <Image iconType="3" name="/Icons/icons8-add-user-male-60.png"/>
             </Property>
           </Properties>
+          <Events>
+            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jLabel3MouseClicked"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel2">
           <Properties>
@@ -214,6 +222,9 @@
               <Image iconType="3" name="/Icons/icons8-add-list-60.png"/>
             </Property>
           </Properties>
+          <Events>
+            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jLabel2MouseClicked"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel1">
           <Properties>
@@ -222,6 +233,9 @@
               <Image iconType="3" name="/Icons/icons8-add-fingerprint-60(1).png"/>
             </Property>
           </Properties>
+          <Events>
+            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jLabel1MouseClicked"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel7">
           <Properties>
@@ -240,7 +254,7 @@
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel10">
           <Properties>
-            <Property name="text" type="java.lang.String" value="&#xdc;r&#xfc;n G&#xfc;ncelleme"/>
+            <Property name="text" type="java.lang.String" value="&#xdc;r&#xfc;n &#x130;&#x15f;lmeleri"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel11">

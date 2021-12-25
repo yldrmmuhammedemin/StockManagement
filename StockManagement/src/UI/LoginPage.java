@@ -12,6 +12,7 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -27,6 +28,7 @@ public class LoginPage extends javax.swing.JFrame {
     }
 Connection Con=null;
 Statement St=null;
+Statement St2=null;
 ResultSet Rs=null;
 ResultSet Rs2=null;
 
@@ -187,12 +189,14 @@ ResultSet Rs2=null;
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
       String p1="Personel";
       String p2="Yönetici";
-      String Query1 ="SELECT * FROM ROOT.PERSONELTBL WHERE PERSONELNO='"+Username.getText()+"'and PERSONELPASSWORD='"+Password.getText()+"'and PERSONELPOSITION='"+p1+"'";
-      String Query2="SELECT * FROM ROOT.PERSONELTBL WHERE PERSONELNO='"+Username.getText()+"'and PERSONELPASSWORD='"+Password.getText()+"'and PERSONELPOSITION='"+p2+"'";
+      String pw=String.valueOf(Password.getPassword());
+      String Query1 ="SELECT * FROM root.PERSONELTBL WHERE PERSONELNO='"+Username.getText()+"'and PERSONELPASSWORD='"+pw+"'and PERSONELPOSITION='"+p1+"'";
+      String Query2="SELECT * FROM root.PERSONELTBL WHERE PERSONELNO='"+Username.getText()+"'and PERSONELPASSWORD='"+pw+"'and PERSONELPOSITION='"+p2+"'";
        try {
         Con=DriverManager.getConnection("jdbc:oracle:thin:@//localhost:1521/XEPDB1","root","123456789");
         St=Con.createStatement();
         Rs=St.executeQuery(Query1);
+        St=Con.createStatement();
         Rs2=St.executeQuery(Query2);
  
         if(Rs.next()){
@@ -200,12 +204,12 @@ ResultSet Rs2=null;
             this.dispose();
         }
         else if(Rs2.next()){
-                new SuperUserMainPage().setVisible(true);
-                this.dispose();
+            new SuperUserMainPage().setVisible(true);
+            this.dispose();
 
                 }
         else{
-        JoptionPane.ShowMessageDialog(this,"Hatalı giriş.");
+        JOptionPane.showMessageDialog(this,"Hatalı Giriş !!!");
         }
        }catch(Exception e){
        }
