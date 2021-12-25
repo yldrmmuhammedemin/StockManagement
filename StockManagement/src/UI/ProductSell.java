@@ -229,7 +229,7 @@ public class ProductSell extends javax.swing.JFrame {
                         .addComponent(jButton4)
                         .addComponent(jButton3)
                         .addComponent(jButton2)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(122, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
