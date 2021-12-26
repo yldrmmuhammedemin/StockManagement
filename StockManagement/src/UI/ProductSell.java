@@ -28,10 +28,14 @@ public class ProductSell extends javax.swing.JFrame {
         initComponents();
         GetCustomer();
         GetProduct();
+        GetProductN();
+        GetCustomerN();
+
     }
 Connection Con=null;
 Statement St=null;
 ResultSet Rs=null;
+PreparedStatement Ps=null;
 
 private void GetCustomer(){
     try {
@@ -59,7 +63,32 @@ private void GetProduct(){
     } catch (Exception e) {
     }
 }
-
+private void GetProductN(){
+    try {
+        Con=DriverManager.getConnection("jdbc:oracle:thin:@//localhost:1521/XEPDB1","root","123456789");
+        St=Con.createStatement();
+        String Query="SELECT * FROM root.PRODUCTTBL ";
+        Rs=St.executeQuery(Query);
+        while(Rs.next()){
+        String PCat=Rs.getString("URUNADI");
+        ProductName.addItem(PCat);
+        }
+    } catch (Exception e) {
+    }
+}
+private void GetCustomerN(){
+    try {
+        Con=DriverManager.getConnection("jdbc:oracle:thin:@//localhost:1521/XEPDB1","root","123456789");
+        St=Con.createStatement();
+        String Query="SELECT * FROM root.CUSTOMERTBL ";
+        Rs=St.executeQuery(Query);
+        while(Rs.next()){
+        String CCat=Rs.getString("CUSTOMERNAME");
+        CustomerName.addItem(CCat);
+        }
+    } catch (Exception e) {
+    }
+}
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -83,11 +112,11 @@ private void GetProduct(){
         jButton4 = new javax.swing.JButton();
         jLabel13 = new javax.swing.JLabel();
         jLabel16 = new javax.swing.JLabel();
-        CustomerNo = new javax.swing.JComboBox<>();
-        CustomerName = new javax.swing.JTextField();
+        CustomerName = new javax.swing.JComboBox<>();
         jLabel11 = new javax.swing.JLabel();
-        ProductName = new javax.swing.JTextField();
+        ProductName = new javax.swing.JComboBox<>();
         ProductNo = new javax.swing.JComboBox<>();
+        CustomerNo = new javax.swing.JComboBox<>();
 
         jLabel12.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         jLabel12.setText("X");
@@ -190,6 +219,49 @@ private void GetProduct(){
             }
         });
 
+        CustomerName.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { " " }));
+        CustomerName.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                CustomerNameİtemStateChanged(evt);
+            }
+        });
+        CustomerName.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                CustomerNameMouseClicked(evt);
+            }
+        });
+        CustomerName.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                CustomerNameActionPerformed(evt);
+            }
+        });
+
+        jLabel11.setText("Ürün Adı");
+
+        ProductName.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { " " }));
+        ProductName.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                ProductNameİtemStateChanged(evt);
+            }
+        });
+        ProductName.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ProductNameActionPerformed(evt);
+            }
+        });
+
+        ProductNo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { " " }));
+        ProductNo.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                ProductNoİtemStateChanged(evt);
+            }
+        });
+        ProductNo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ProductNoActionPerformed(evt);
+            }
+        });
+
         CustomerNo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { " " }));
         CustomerNo.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
@@ -204,24 +276,6 @@ private void GetProduct(){
         CustomerNo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 CustomerNoActionPerformed(evt);
-            }
-        });
-
-        CustomerName.setText("sadasdasd");
-        CustomerName.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                CustomerNameActionPerformed(evt);
-            }
-        });
-
-        jLabel11.setText("Ürün Adı");
-
-        ProductName.setEditable(false);
-
-        ProductNo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { " " }));
-        ProductNo.addItemListener(new java.awt.event.ItemListener() {
-            public void itemStateChanged(java.awt.event.ItemEvent evt) {
-                ProductNoİtemStateChanged(evt);
             }
         });
 
@@ -241,8 +295,7 @@ private void GetProduct(){
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                                 .addComponent(jLabel16)
                                 .addGap(18, 18, 18)
-                                .addComponent(jLabel13)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
+                                .addComponent(jLabel13)))
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -254,7 +307,6 @@ private void GetProduct(){
                             .addComponent(CustomerNo, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(113, 113, 113)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(ProductName, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel7)
@@ -269,7 +321,8 @@ private void GetProduct(){
                                 .addGroup(jPanel1Layout.createSequentialGroup()
                                     .addComponent(jLabel11)
                                     .addGap(153, 153, 153))
-                                .addComponent(ProductNo, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(ProductName, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(ProductNo, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
         jPanel1Layout.setVerticalGroup(
@@ -359,45 +412,45 @@ private void GetProduct(){
         this.setExtendedState(JFrame.ICONIFIED);
     }//GEN-LAST:event_jLabel16MouseClicked
 
-    private void CustomerNoİtemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_CustomerNoİtemStateChanged
-        try {
-        Con=DriverManager.getConnection("jdbc:oracle:thin:@//localhost:1521/XEPDB1","root","123456789");
-        St=Con.createStatement();
-        String no=(CustomerNo.getSelectedItem().toString());
-        String Query="SELECT * FROM root.CUSTOMERTBL WHERE CUSTOMERNO="+no;
-        Rs=St.executeQuery(Query);
-        String PName=Rs.getString("CUSTOMERNAME");
-        CustomerName.setText(PName);
+    private void CustomerNameİtemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_CustomerNameİtemStateChanged
 
-    } catch (Exception e) {
-    }
+    }//GEN-LAST:event_CustomerNameİtemStateChanged
+
+    private void CustomerNameMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_CustomerNameMouseClicked
+
+    }//GEN-LAST:event_CustomerNameMouseClicked
+
+    private void CustomerNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CustomerNameActionPerformed
+   
+    }//GEN-LAST:event_CustomerNameActionPerformed
+
+    private void ProductNameİtemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_ProductNameİtemStateChanged
+   
+    }//GEN-LAST:event_ProductNameİtemStateChanged
+
+    private void ProductNoİtemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_ProductNoİtemStateChanged
+
+    }//GEN-LAST:event_ProductNoİtemStateChanged
+
+    private void ProductNoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ProductNoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_ProductNoActionPerformed
+
+    private void ProductNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ProductNameActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_ProductNameActionPerformed
+
+    private void CustomerNoİtemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_CustomerNoİtemStateChanged
+        // TODO add your handling code here:
     }//GEN-LAST:event_CustomerNoİtemStateChanged
 
     private void CustomerNoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_CustomerNoMouseClicked
-
+        // TODO add your handling code here:
     }//GEN-LAST:event_CustomerNoMouseClicked
 
-    private void CustomerNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CustomerNameActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_CustomerNameActionPerformed
-
     private void CustomerNoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CustomerNoActionPerformed
-   
+        // TODO add your handling code here:
     }//GEN-LAST:event_CustomerNoActionPerformed
-
-    private void ProductNoİtemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_ProductNoİtemStateChanged
-          try {
-        Con=DriverManager.getConnection("jdbc:oracle:thin:@//localhost:1521/XEPDB1","root","123456789");
-        St=Con.createStatement();
-        String no=(ProductNo.getSelectedItem().toString());
-        String Query="SELECT * FROM root.PRODUCTTBL WHERE URUNNO="+no;
-        Rs=St.executeQuery(Query);
-        String PName=Rs.getString("URUNADI");
-        ProductName.setText(PName);
-        
-    } catch (Exception e) {
-    }
-    }//GEN-LAST:event_ProductNoİtemStateChanged
 
     /**
      * @param args the command line arguments
@@ -412,11 +465,11 @@ private void GetProduct(){
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTextField CustomerName;
+    private javax.swing.JComboBox<String> CustomerName;
     private javax.swing.JComboBox<String> CustomerNo;
     private javax.swing.JTextField InoviceNo;
     private javax.swing.JTextField ProductAmount;
-    private javax.swing.JTextField ProductName;
+    private javax.swing.JComboBox<String> ProductName;
     private javax.swing.JComboBox<String> ProductNo;
     private javax.swing.JTable SellTable;
     private javax.swing.JButton jButton2;

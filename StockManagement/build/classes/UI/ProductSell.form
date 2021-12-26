@@ -75,7 +75,6 @@
                                   <Component id="jLabel16" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace type="separate" max="-2" attributes="0"/>
                                   <Component id="jLabel13" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace max="-2" attributes="0"/>
                               </Group>
                           </Group>
                           <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
@@ -86,12 +85,11 @@
                               <Component id="jLabel10" alignment="0" min="-2" max="-2" attributes="0"/>
                               <Component id="jLabel8" alignment="0" min="-2" max="-2" attributes="0"/>
                               <Component id="InoviceNo" alignment="0" min="-2" pref="200" max="-2" attributes="0"/>
-                              <Component id="CustomerName" min="-2" pref="200" max="-2" attributes="0"/>
-                              <Component id="CustomerNo" alignment="0" min="-2" pref="200" max="-2" attributes="0"/>
+                              <Component id="CustomerName" alignment="0" min="-2" pref="200" max="-2" attributes="0"/>
+                              <Component id="CustomerNo" min="-2" pref="200" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace min="-2" pref="113" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="ProductName" min="-2" pref="200" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="1" attributes="0">
                                   <Group type="103" groupAlignment="0" attributes="0">
                                       <Component id="jLabel7" alignment="0" min="-2" max="-2" attributes="0"/>
@@ -109,8 +107,9 @@
                                       <Component id="jLabel11" min="-2" max="-2" attributes="0"/>
                                       <EmptySpace min="-2" pref="153" max="-2" attributes="0"/>
                                   </Group>
-                                  <Component id="ProductNo" alignment="0" min="-2" pref="200" max="-2" attributes="0"/>
+                                  <Component id="ProductName" alignment="0" min="-2" pref="200" max="-2" attributes="0"/>
                               </Group>
+                              <Component id="ProductNo" min="-2" pref="200" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace max="32767" attributes="0"/>
                       </Group>
@@ -358,6 +357,60 @@
             <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jLabel16MouseClicked"/>
           </Events>
         </Component>
+        <Component class="javax.swing.JComboBox" name="CustomerName">
+          <Properties>
+            <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+              <StringArray count="1">
+                <StringItem index="0" value=" "/>
+              </StringArray>
+            </Property>
+          </Properties>
+          <Events>
+            <EventHandler event="itemStateChanged" listener="java.awt.event.ItemListener" parameters="java.awt.event.ItemEvent" handler="CustomerName&#x130;temStateChanged"/>
+            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="CustomerNameMouseClicked"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="CustomerNameActionPerformed"/>
+          </Events>
+          <AuxValues>
+            <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
+          </AuxValues>
+        </Component>
+        <Component class="javax.swing.JLabel" name="jLabel11">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="&#xdc;r&#xfc;n Ad&#x131;"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JComboBox" name="ProductName">
+          <Properties>
+            <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+              <StringArray count="1">
+                <StringItem index="0" value=" "/>
+              </StringArray>
+            </Property>
+          </Properties>
+          <Events>
+            <EventHandler event="itemStateChanged" listener="java.awt.event.ItemListener" parameters="java.awt.event.ItemEvent" handler="ProductName&#x130;temStateChanged"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="ProductNameActionPerformed"/>
+          </Events>
+          <AuxValues>
+            <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
+          </AuxValues>
+        </Component>
+        <Component class="javax.swing.JComboBox" name="ProductNo">
+          <Properties>
+            <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+              <StringArray count="1">
+                <StringItem index="0" value=" "/>
+              </StringArray>
+            </Property>
+          </Properties>
+          <Events>
+            <EventHandler event="itemStateChanged" listener="java.awt.event.ItemListener" parameters="java.awt.event.ItemEvent" handler="ProductNo&#x130;temStateChanged"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="ProductNoActionPerformed"/>
+          </Events>
+          <AuxValues>
+            <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
+          </AuxValues>
+        </Component>
         <Component class="javax.swing.JComboBox" name="CustomerNo">
           <Properties>
             <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
@@ -370,39 +423,6 @@
             <EventHandler event="itemStateChanged" listener="java.awt.event.ItemListener" parameters="java.awt.event.ItemEvent" handler="CustomerNo&#x130;temStateChanged"/>
             <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="CustomerNoMouseClicked"/>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="CustomerNoActionPerformed"/>
-          </Events>
-          <AuxValues>
-            <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
-          </AuxValues>
-        </Component>
-        <Component class="javax.swing.JTextField" name="CustomerName">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="sadasdasd"/>
-          </Properties>
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="CustomerNameActionPerformed"/>
-          </Events>
-        </Component>
-        <Component class="javax.swing.JLabel" name="jLabel11">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="&#xdc;r&#xfc;n Ad&#x131;"/>
-          </Properties>
-        </Component>
-        <Component class="javax.swing.JTextField" name="ProductName">
-          <Properties>
-            <Property name="editable" type="boolean" value="false"/>
-          </Properties>
-        </Component>
-        <Component class="javax.swing.JComboBox" name="ProductNo">
-          <Properties>
-            <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-              <StringArray count="1">
-                <StringItem index="0" value=" "/>
-              </StringArray>
-            </Property>
-          </Properties>
-          <Events>
-            <EventHandler event="itemStateChanged" listener="java.awt.event.ItemListener" parameters="java.awt.event.ItemEvent" handler="ProductNo&#x130;temStateChanged"/>
           </Events>
           <AuxValues>
             <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>

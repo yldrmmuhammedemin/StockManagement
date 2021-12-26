@@ -4,8 +4,6 @@
  */
 package stockmanagement;
 import UI.LoginPage;
-
-
 /**
  *
  * @author Rutheim
@@ -15,8 +13,11 @@ public class StockManagement {
     /**
      * @param args the command line arguments
      */
+
+    
     public static void main(String[] args) {
        LoginPage LoginPage =new LoginPage();
        LoginPage.setVisible(true);
+       
     }
 }
