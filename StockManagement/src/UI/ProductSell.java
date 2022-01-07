@@ -7,6 +7,7 @@ import java.sql.Driver;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -14,6 +15,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.sql.DriverManager;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import net.proteanit.sql.DbUtils;
 
@@ -22,21 +24,40 @@ import net.proteanit.sql.DbUtils;
  *
  * @author Rutheim
  */
+
 public class ProductSell extends javax.swing.JFrame {
 
     public ProductSell() {
         initComponents();
         GetCustomer();
         GetProduct();
-        GetProductN();
-        GetCustomerN();
+        SelectProd();
 
     }
 Connection Con=null;
 Statement St=null;
 ResultSet Rs=null;
-PreparedStatement Ps=null;
-
+PreparedStatement preparedStatement=null;
+CallableStatement Cs=null;
+public void SetNull()
+{
+ProductNo.setSelectedItem(null);
+InvoiceNo.setText(null);
+ProductAmount.setText(null);
+ProdName.setText(null);
+CustName.setText(null);
+CustomerNo.setSelectedItem(null);
+}
+public void SelectProd()
+{
+    try {
+        Con=DriverManager.getConnection("jdbc:oracle:thin:@//localhost:1521/XEPDB1","root","123456789");
+        St=Con.createStatement();
+        Rs=St.executeQuery("Select * from SellTbl");
+        SellTable.setModel(DbUtils.resultSetToTableModel(Rs));
+    } catch (Exception e) {
+    }
+}
 private void GetCustomer(){
     try {
         Con=DriverManager.getConnection("jdbc:oracle:thin:@//localhost:1521/XEPDB1","root","123456789");
@@ -63,33 +84,7 @@ private void GetProduct(){
     } catch (Exception e) {
     }
 }
-private void GetProductN(){
-    try {
-        Con=DriverManager.getConnection("jdbc:oracle:thin:@//localhost:1521/XEPDB1","root","123456789");
-        St=Con.createStatement();
-        String Query="SELECT * FROM root.PRODUCTTBL ";
-        Rs=St.executeQuery(Query);
-        while(Rs.next()){
-        String PCat=Rs.getString("URUNADI");
-        ProductName.addItem(PCat);
-        }
-    } catch (Exception e) {
-    }
-}
-private void GetCustomerN(){
-    try {
-        Con=DriverManager.getConnection("jdbc:oracle:thin:@//localhost:1521/XEPDB1","root","123456789");
-        St=Con.createStatement();
-        String Query="SELECT * FROM root.CUSTOMERTBL ";
-        Rs=St.executeQuery(Query);
-        while(Rs.next()){
-        String CCat=Rs.getString("CUSTOMERNAME");
-        CustomerName.addItem(CCat);
-        }
-    } catch (Exception e) {
-    }
-}
-    @SuppressWarnings("unchecked")
+
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
@@ -105,18 +100,18 @@ private void GetCustomerN(){
         ProductAmount = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
-        InoviceNo = new javax.swing.JTextField();
+        CustName = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
         jButton4 = new javax.swing.JButton();
         jLabel13 = new javax.swing.JLabel();
         jLabel16 = new javax.swing.JLabel();
-        CustomerName = new javax.swing.JComboBox<>();
         jLabel11 = new javax.swing.JLabel();
-        ProductName = new javax.swing.JComboBox<>();
         ProductNo = new javax.swing.JComboBox<>();
         CustomerNo = new javax.swing.JComboBox<>();
+        InvoiceNo = new javax.swing.JTextField();
+        ProdName = new javax.swing.JTextField();
 
         jLabel12.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         jLabel12.setText("X");
@@ -173,9 +168,14 @@ private void GetCustomerN(){
 
             },
             new String [] {
-                "müsteriNo", "müsteriAdi", "faturaNo", "urunAdi", "urunAdedi"
+                "Müşteri No", "Müşteri Adı", "Fatura No", "Ürün Adı", "Ürün Adedi", "Ürün No"
             }
         ));
+        SellTable.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                SellTableMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(SellTable);
 
         jButton3.setText("Güncelle");
@@ -189,9 +189,9 @@ private void GetCustomerN(){
 
         jLabel7.setText("Ürün No");
 
-        InoviceNo.addActionListener(new java.awt.event.ActionListener() {
+        CustName.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                InoviceNoActionPerformed(evt);
+                CustNameActionPerformed(evt);
             }
         });
 
@@ -202,6 +202,11 @@ private void GetCustomerN(){
         jLabel10.setText("Müşteri No");
 
         jButton4.setText("Ekle");
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
 
         jLabel13.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         jLabel13.setText("X");
@@ -219,36 +224,7 @@ private void GetCustomerN(){
             }
         });
 
-        CustomerName.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { " " }));
-        CustomerName.addItemListener(new java.awt.event.ItemListener() {
-            public void itemStateChanged(java.awt.event.ItemEvent evt) {
-                CustomerNameİtemStateChanged(evt);
-            }
-        });
-        CustomerName.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                CustomerNameMouseClicked(evt);
-            }
-        });
-        CustomerName.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                CustomerNameActionPerformed(evt);
-            }
-        });
-
         jLabel11.setText("Ürün Adı");
-
-        ProductName.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { " " }));
-        ProductName.addItemListener(new java.awt.event.ItemListener() {
-            public void itemStateChanged(java.awt.event.ItemEvent evt) {
-                ProductNameİtemStateChanged(evt);
-            }
-        });
-        ProductName.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                ProductNameActionPerformed(evt);
-            }
-        });
 
         ProductNo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { " " }));
         ProductNo.addItemListener(new java.awt.event.ItemListener() {
@@ -279,6 +255,18 @@ private void GetCustomerN(){
             }
         });
 
+        InvoiceNo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                InvoiceNoActionPerformed(evt);
+            }
+        });
+
+        ProdName.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ProdNameActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -299,12 +287,12 @@ private void GetCustomerN(){
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel9)
                             .addComponent(jLabel10)
                             .addComponent(jLabel8)
-                            .addComponent(InoviceNo, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(CustomerName, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(CustomerNo, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(CustName, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(CustomerNo, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(InvoiceNo, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel9))
                         .addGap(113, 113, 113)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -320,9 +308,9 @@ private void GetCustomerN(){
                                     .addComponent(jButton2))
                                 .addGroup(jPanel1Layout.createSequentialGroup()
                                     .addComponent(jLabel11)
-                                    .addGap(153, 153, 153))
-                                .addComponent(ProductName, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(ProductNo, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGap(153, 153, 153)))
+                            .addComponent(ProductNo, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(ProdName, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
         jPanel1Layout.setVerticalGroup(
@@ -339,7 +327,7 @@ private void GetCustomerN(){
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel8)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(InoviceNo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(InvoiceNo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel10))
                     .addGroup(jPanel1Layout.createSequentialGroup()
@@ -349,26 +337,25 @@ private void GetCustomerN(){
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel11)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(CustomerNo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(CustomerNo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(ProdName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel6)
+                            .addComponent(jLabel9))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
-                                .addComponent(jLabel6)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(ProductAmount, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(10, 10, 10)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(jButton4)
-                                    .addComponent(jButton3)
-                                    .addComponent(jButton2)))
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
-                                .addComponent(jLabel9)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(CustomerName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                    .addComponent(ProductName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(ProductAmount, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(10, 10, 10)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jButton4)
+                            .addComponent(jButton3)
+                            .addComponent(jButton2)))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
+                        .addGap(23, 23, 23)
+                        .addComponent(CustName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(43, 114, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -387,16 +374,29 @@ private void GetCustomerN(){
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        // TODO add your handling code here:
+       if(InvoiceNo.getText().isEmpty())
+        {
+            JOptionPane.showMessageDialog(this,"Lütfen Silinecek Faturayı Giriniz.");
+        }
+        else
+        {
+            try {
+                Con=DriverManager.getConnection("jdbc:oracle:thin:@//localhost:1521/XEPDB1","root","123456789");
+                String no=InvoiceNo.getText();
+                String Query="DELETE FROM root.SELLTBL WHERE INVOICENO="+no;
+                Statement Add= Con.createStatement();
+                Add.execute(Query);
+                SelectProd();
+                SetNull();
+                JOptionPane.showMessageDialog(this,"Fatura Başarıyla Silinmiştir.");
+            } catch (Exception e) {
+            }
+        }
     }//GEN-LAST:event_jButton2ActionPerformed
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+    private void CustNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CustNameActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton3ActionPerformed
-
-    private void InoviceNoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_InoviceNoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_InoviceNoActionPerformed
+    }//GEN-LAST:event_CustNameActionPerformed
 
     private void jLabel13MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel13MouseClicked
                 System.exit(0);
@@ -412,38 +412,42 @@ private void GetCustomerN(){
         this.setExtendedState(JFrame.ICONIFIED);
     }//GEN-LAST:event_jLabel16MouseClicked
 
-    private void CustomerNameİtemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_CustomerNameİtemStateChanged
-
-    }//GEN-LAST:event_CustomerNameİtemStateChanged
-
-    private void CustomerNameMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_CustomerNameMouseClicked
-
-    }//GEN-LAST:event_CustomerNameMouseClicked
-
-    private void CustomerNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CustomerNameActionPerformed
-   
-    }//GEN-LAST:event_CustomerNameActionPerformed
-
-    private void ProductNameİtemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_ProductNameİtemStateChanged
-   
-    }//GEN-LAST:event_ProductNameİtemStateChanged
-
     private void ProductNoİtemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_ProductNoİtemStateChanged
-
+    String proN="";
+            try {
+        Con=DriverManager.getConnection("jdbc:oracle:thin:@//localhost:1521/XEPDB1","root","123456789");
+        String no=ProductNo.getSelectedItem().toString();
+        String Query="SELECT * FROM root.PRODUCTTBL WHERE URUNNO="+no;
+        Rs=St.executeQuery(Query);
+        while (Rs.next()) {
+        proN=Rs.getString("UrunAdı");
+       }
+        ProdName.setText(proN);
+        }   
+       catch (Exception e) {
+        }
     }//GEN-LAST:event_ProductNoİtemStateChanged
 
     private void ProductNoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ProductNoActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_ProductNoActionPerformed
 
-    private void ProductNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ProductNameActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_ProductNameActionPerformed
-
     private void CustomerNoİtemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_CustomerNoİtemStateChanged
-        // TODO add your handling code here:
+        String custN="";
+            try {
+        Con=DriverManager.getConnection("jdbc:oracle:thin:@//localhost:1521/XEPDB1","root","123456789");
+        String no=CustomerNo.getSelectedItem().toString();
+        String Query="SELECT * FROM root.CUSTOMERTBL WHERE CUSTOMERNO="+no;
+        Rs=St.executeQuery(Query);
+        while (Rs.next()) {
+        custN=Rs.getString("CustomerName");
+       }
+        CustName.setText(custN);
+        }   
+       catch (Exception e) {
+        }
     }//GEN-LAST:event_CustomerNoİtemStateChanged
-
+    
     private void CustomerNoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_CustomerNoMouseClicked
         // TODO add your handling code here:
     }//GEN-LAST:event_CustomerNoMouseClicked
@@ -451,6 +455,74 @@ private void GetCustomerN(){
     private void CustomerNoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CustomerNoActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_CustomerNoActionPerformed
+
+    private void InvoiceNoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_InvoiceNoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_InvoiceNoActionPerformed
+
+    private void ProdNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ProdNameActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_ProdNameActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        if(CustName.getText().isEmpty() || InvoiceNo.getText().isEmpty() || ProductAmount.getText().isEmpty() || ProdName.getText().isEmpty())
+        {
+        JOptionPane.showMessageDialog(this,"Bilgi Eksik.");
+        }
+        else
+        {
+            try {
+                Con=DriverManager.getConnection("jdbc:oracle:thin:@//localhost:1521/XEPDB1","root","123456789");
+                String UpdateQuery="UPDATE root.SELLTBL SET CUSTOMERNAME='"+CustName.getText()+"'"+",PRODUCTAMOUNT='"+ProductAmount.getText()+"'"+",PRODUCTNAME='"+ProdName.getText()+"'"+",PRODUCTNO='"+ProductNo.getSelectedItem().toString()+"'"+",CUSTOMERNO='"+CustomerNo.getSelectedItem().toString()+"'"+"WHERE INVOICENO="+InvoiceNo.getText();
+                Statement Add=Con.createStatement();
+                Add.execute(UpdateQuery);
+                JOptionPane.showMessageDialog(this,"Fatura Başarıyla Güncellendi.");
+                SelectProd();
+                SetNull();
+            }catch (Exception e) {
+            }
+        }
+    }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+         try {
+            int sellamount;
+            int urunno;
+            Con=DriverManager.getConnection("jdbc:oracle:thin:@//localhost:1521/XEPDB1","root","123456789");
+                PreparedStatement add=Con.prepareStatement("INSERT INTO SELLTBL VALUES(?,?,?,?,?,?)");
+                add.setInt(1,Integer.valueOf(CustomerNo.getSelectedItem().toString()));
+                add.setString(2,CustName.getText());        
+                add.setInt(3,Integer.valueOf(InvoiceNo.getText()));
+                add.setString(4,ProdName.getText());
+                add.setInt(5,Integer.valueOf(ProductAmount.getText()));
+                add.setInt(6,Integer.valueOf(ProductNo.getSelectedItem().toString()));
+                int row =add.executeUpdate();
+                sellamount=Integer.valueOf(ProductAmount.getText());
+                urunno=Integer.valueOf(ProductNo.getSelectedItem().toString());
+                JOptionPane.showMessageDialog(this,"Fatura Başarıyla Oluşturuldu.");
+                String query = "{call sellproduct(?,?)}"; 
+                Cs = Con.prepareCall(query);  
+                Cs.setInt(1,urunno); 
+                Cs.setInt(2, sellamount);  
+                Cs.execute(); 
+                Con.close();
+                SetNull();
+                SelectProd();
+                
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+    }//GEN-LAST:event_jButton4ActionPerformed
+
+    private void SellTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_SellTableMouseClicked
+    DefaultTableModel model=(DefaultTableModel)SellTable.getModel();
+    int index=SellTable.getSelectedRow();
+    InvoiceNo.setText(model.getValueAt(index,2).toString());
+    CustName.setText(model.getValueAt(index,1).toString());
+    ProdName.setText(model.getValueAt(index,3).toString());
+    ProductAmount.setText(model.getValueAt(index,4).toString());
+    
+    }//GEN-LAST:event_SellTableMouseClicked
 
     /**
      * @param args the command line arguments
@@ -465,11 +537,11 @@ private void GetCustomerN(){
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JComboBox<String> CustomerName;
+    private javax.swing.JTextField CustName;
     private javax.swing.JComboBox<String> CustomerNo;
-    private javax.swing.JTextField InoviceNo;
+    private javax.swing.JTextField InvoiceNo;
+    private javax.swing.JTextField ProdName;
     private javax.swing.JTextField ProductAmount;
-    private javax.swing.JComboBox<String> ProductName;
     private javax.swing.JComboBox<String> ProductNo;
     private javax.swing.JTable SellTable;
     private javax.swing.JButton jButton2;
