@@ -140,6 +140,8 @@ public class ProductAdd extends javax.swing.JFrame {
 
         jLabel13.setText("Ürün Adı");
 
+        ProductNo.setEditable(false);
+
         jLabel14.setText("Ürün No");
 
         jLabel15.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
@@ -310,20 +312,19 @@ private void GetCat(){
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         try {
             Con=DriverManager.getConnection("jdbc:oracle:thin:@//localhost:1521/XEPDB1","root","123456789");
-                PreparedStatement add=Con.prepareStatement("INSERT INTO PRODUCTTBL VALUES(?,?,?,?,?,?)");
-                add.setInt(1,Integer.valueOf(ProductNo.getText()));
-                add.setString(2,ProductName.getText());
-                add.setString(3,ProductCat.getSelectedItem().toString());           
-                add.setInt(4,Integer.valueOf(ProductAmount.getText()));
-                add.setInt(5,Integer.valueOf(ProductPrice.getText()));
-                add.setString(6,ProductBrand.getText());
+                PreparedStatement add=Con.prepareStatement("INSERT INTO PRODUCTTBL(URUNADI,URUNKATEGORI,URUNFIYATI,URUNADEDI,URUNMARKASI) VALUES(?,?,?,?,?)");
+                add.setString(1,ProductName.getText());
+                add.setString(2,ProductCat.getSelectedItem().toString());           
+                add.setInt(3,Integer.valueOf(ProductAmount.getText()));
+                add.setInt(4,Integer.valueOf(ProductPrice.getText()));
+                add.setString(5,ProductBrand.getText());
                 int row =add.executeUpdate();
                 JOptionPane.showMessageDialog(this,"Ürün Başarıyla Eklendi.");
                 Con.close();
                 SetNull();
                 SelectProd();
-                
         } catch (Exception e) {
+            System.out.println(e);
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 
