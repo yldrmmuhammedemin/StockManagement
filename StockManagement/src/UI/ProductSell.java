@@ -104,7 +104,7 @@ private void GetProduct(){
         jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
-        jButton4 = new javax.swing.JButton();
+        EkleBtn = new javax.swing.JButton();
         jLabel13 = new javax.swing.JLabel();
         jLabel16 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
@@ -201,10 +201,10 @@ private void GetProduct(){
 
         jLabel10.setText("Müşteri No");
 
-        jButton4.setText("Ekle");
-        jButton4.addActionListener(new java.awt.event.ActionListener() {
+        EkleBtn.setText("Ekle");
+        EkleBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton4ActionPerformed(evt);
+                EkleBtnActionPerformed(evt);
             }
         });
 
@@ -301,7 +301,7 @@ private void GetProduct(){
                                     .addComponent(ProductAmount, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(jLabel6))
                                 .addGroup(jPanel1Layout.createSequentialGroup()
-                                    .addComponent(jButton4)
+                                    .addComponent(EkleBtn)
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                     .addComponent(jButton3)
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -349,7 +349,7 @@ private void GetProduct(){
                         .addComponent(ProductAmount, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(10, 10, 10)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jButton4)
+                            .addComponent(EkleBtn)
                             .addComponent(jButton3)
                             .addComponent(jButton2)))
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
@@ -484,7 +484,7 @@ private void GetProduct(){
         }
     }//GEN-LAST:event_jButton3ActionPerformed
 
-    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+    private void EkleBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EkleBtnActionPerformed
          try {
             int sellamount;
             int urunno;
@@ -512,7 +512,7 @@ private void GetProduct(){
         } catch (Exception e) {
             System.out.println(e);
         }
-    }//GEN-LAST:event_jButton4ActionPerformed
+    }//GEN-LAST:event_EkleBtnActionPerformed
 
     private void SellTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_SellTableMouseClicked
     DefaultTableModel model=(DefaultTableModel)SellTable.getModel();
@@ -539,6 +539,7 @@ private void GetProduct(){
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField CustName;
     private javax.swing.JComboBox<String> CustomerNo;
+    private javax.swing.JButton EkleBtn;
     private javax.swing.JTextField InvoiceNo;
     private javax.swing.JTextField ProdName;
     private javax.swing.JTextField ProductAmount;
@@ -546,7 +547,6 @@ private void GetProduct(){
     private javax.swing.JTable SellTable;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
